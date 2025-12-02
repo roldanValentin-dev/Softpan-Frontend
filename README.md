@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# 🥖 Softpan Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Sistema de gestión para panadería** - Progressive Web App (PWA) desarrollada con React + TypeScript
 
-Currently, two official plugins are available:
+## 📱 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ **Mobile-First Design** - Optimizado para celulares y tablets
+- ✅ **Progressive Web App** - Se instala como app nativa
+- ✅ **Sistema de Autenticación** - Login con JWT
+- ✅ **Gestión de Ventas** - Registro rápido de ventas
+- ✅ **Control de Inventario** - Productos y precios
+- ✅ **Gestión de Clientes** - Base de datos de clientes
+- ✅ **Sistema de Pagos** - Control de deudas y pagos
+- ✅ **Dashboard** - Estadísticas y reportes
+- ✅ **Offline Ready** - Funciona sin conexión
 
-## React Compiler
+## 🛠️ Stack Tecnológico
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Estilos**: Tailwind CSS
+- **Routing**: React Router
+- **Estado**: TanStack Query
+- **Formularios**: React Hook Form
+- **HTTP Client**: Axios
+- **PWA**: Vite PWA Plugin
+- **UI Components**: Headless UI + Heroicons
 
-## Expanding the ESLint configuration
+## 🚀 Instalación y Desarrollo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Clonar repositorio
+git clone https://github.com/roldanValentin-dev/Softpan-Frontend.git
+cd Softpan-Frontend/softpan-frontend
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Instalar dependencias
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Ejecutar en desarrollo
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build para producción
+npm run build
+
+# Preview del build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🌐 API Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Este frontend consume la API de Softpan desarrollada en ASP.NET Core.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Base URL**: `https://localhost:7097/api`
+
+### Endpoints principales:
+- `/auth/login` - Autenticación
+- `/productos` - Gestión de productos
+- `/clientes` - Gestión de clientes
+- `/ventas` - Sistema de ventas
+- `/pagos` - Registro de pagos
+- `/estadisticas` - Dashboard y reportes
+
+## 📱 Instalación como PWA
+
+1. Abre la aplicación en tu navegador
+2. En el menú del navegador, selecciona "Instalar app" o "Agregar a pantalla de inicio"
+3. La app se instalará como una aplicación nativa
+
+## 🎯 Usuarios del Sistema
+
+- **👨‍💼 Administrador**: Acceso completo al sistema
+- **👩‍💼 Vendedor**: Crear ventas, ver productos y clientes
+- **👨‍💼 Cajero**: Registrar pagos, ver ventas
+
+## 🚀 Deploy
+
+La aplicación está configurada para deploy automático en Vercel:
+
+```bash
+# Deploy manual
+npm run build
+vercel --prod
 ```
+
+## 📄 Licencia
+
+Este proyecto es privado y está desarrollado para uso interno de panaderías.
+
+---
+
+**Desarrollado con ❤️ para la gestión eficiente de panaderías**

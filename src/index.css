@@ -16,11 +16,11 @@
 /* Componentes personalizados */
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 touch-manipulation;
+    @apply bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200 touch-manipulation;
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200;
   }
   
   .card {
@@ -28,18 +28,6 @@
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-base;
-  }
-}
-
-/* Utilidades para touch devices */
-@layer utilities {
-  .touch-manipulation {
-    touch-action: manipulation;
-  }
-  
-  .safe-area-inset {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base;
   }
 }
