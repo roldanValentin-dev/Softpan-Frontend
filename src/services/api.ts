@@ -31,6 +31,9 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.error('API Error:', error.response?.data);
+    console.error('Validation Errors:', error.response?.data?.errors);
+    
     const apiError: ApiError = {
       message: error.response?.data?.message || error.message || 'Error desconocido',
       status: error.response?.status,

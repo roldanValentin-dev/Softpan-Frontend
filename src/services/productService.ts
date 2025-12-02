@@ -3,22 +3,37 @@ import type { Producto, ProductoForm } from '../types';
 
 export const productService = {
   async getAll(): Promise<Producto[]> {
-    const response = await api.get<Producto[]>('/productos');
-    return response.data;
+    const response = await api.get<any[]>('/productos');
+    return response.data.map((p: any) => ({
+      ...p,
+      precioUnitario: p.precioBase || p.precioUnitario || 0
+    }));
   },
 
   async getActive(): Promise<Producto[]> {
-    const response = await api.get<Producto[]>('/productos/activos');
-    return response.data;
+    const response = await api.get<any[]>('/productos/activos');
+    return response.data.map((p: any) => ({
+      ...p,
+      precioUnitario: p.precioBase || p.precioUnitario || 0
+    }));
   },
 
   async getById(id: number): Promise<Producto> {
-    const response = await api.get<Producto>(`/productos/${id}`);
-    return response.data;
+    const response = await api.get<any>(`/productos/${id}`);
+    return {
+      ...response.data,
+      precioUnitario: response.data.precioBase || response.data.precioUnitario || 0
+    };
   },
 
   async create(producto: ProductoForm): Promise<Producto> {
-    const response = await api.post<Producto>('/productos', producto);
+    const payload = {
+      ...producto,
+      precioUnitario: parseFloat(producto.precioUnitario.toString()),
+      precioBase: parseFloat(producto.precioUnitario.toString())
+    };
+    console.log('Enviando producto:', payload);
+    const response = await api.post<Producto>('/productos', payload);
     return response.data;
   },
 

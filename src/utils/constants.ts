@@ -1,6 +1,6 @@
 // Constantes de la aplicación
 
-export const API_BASE_URL = 'https://localhost:7097/api';
+export const API_BASE_URL = 'http://localhost:7097/api';
 
 export const ROUTES = {
   // Públicas

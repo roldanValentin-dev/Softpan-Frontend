@@ -2,32 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Estilos base para mobile-first */
 @layer base {
   html {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   
   body {
-    @apply bg-gray-50 text-gray-900 min-h-screen;
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900 min-h-screen antialiased;
   }
 }
 
-/* Componentes personalizados */
 @layer components {
   .btn-primary {
-    @apply bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-600/40 transition-all duration-300 transform hover:-translate-y-0.5;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200;
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4;
+    @apply bg-white rounded-2xl shadow-xl border border-gray-100 p-6 backdrop-blur-sm;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base;
+    @apply w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 text-base transition-all duration-200 bg-white hover:border-gray-300;
   }
 }
