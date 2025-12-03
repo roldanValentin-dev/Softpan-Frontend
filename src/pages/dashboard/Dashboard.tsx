@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import AppLayout from '../../components/layout/AppLayout';
 import { useAuth } from '../../store/authContext';
 import { ROUTES } from '../../utils/constants';
+import logo from '../../assets/images/Logo-Softpan.png';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -38,17 +39,18 @@ export default function Dashboard() {
 
   return (
     <AppLayout>
-      <div className="space-y-8">
-        <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Bienvenido, {user?.nombre}
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Selecciona una opción para comenzar
-          </p>
-        </div>
+      <div className="min-h-[calc(100vh-12rem)] flex flex-col">
+        <div className="flex-1 space-y-8">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              Bienvenido, {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : user?.email}
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Selecciona una opción para comenzar
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuItems.map((item) => (
             <Link
               key={item.route}
@@ -76,32 +78,21 @@ export default function Dashboard() {
               </div>
             </Link>
           ))}
-        </div>
-
-        <div className="card">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-              <span className="material-icons text-white text-3xl">person</span>
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-gray-900 text-lg mb-3">Información de Usuario</h3>
-              <div className="space-y-2 text-gray-600">
-                <div className="flex items-center gap-2">
-                  <span className="material-icons text-gray-400 text-sm">email</span>
-                  <span>{user?.email}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="material-icons text-gray-400 text-sm">badge</span>
-                  <span>{user?.nombre}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="material-icons text-gray-400 text-sm">admin_panel_settings</span>
-                  <span>{user?.roles.join(', ')}</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
+
+        <footer className="mt-auto pt-8 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Softpan" className="h-8 w-auto" />
+              <div className="text-sm text-gray-600">
+                <p className="font-semibold">© {new Date().getFullYear()} Softpan</p>
+                <p>Todos los derechos reservados</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500">Versión 1.0.0</p>
+          </div>
+        </footer>
       </div>
     </AppLayout>
   );

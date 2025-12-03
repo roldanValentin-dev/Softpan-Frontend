@@ -19,6 +19,8 @@ export const ROUTES = {
   VENTAS_NUEVA: '/ventas/nueva',
   VENTAS_DETALLE: '/ventas/:id',
   PAGOS: '/pagos',
+  PAGOS_NUEVO: '/pagos/nuevo',
+  PAGOS_DETALLE: '/pagos/:id',
   REPORTES: '/reportes',
   PERFIL: '/perfil',
 } as const;
@@ -30,9 +32,9 @@ export const ROLES = {
 } as const;
 
 export const ESTADOS_VENTA = {
-  PENDIENTE: 0,
-  PARCIALMENTE_PAGADA: 1,
-  PAGADA: 2,
+  PENDIENTE: 1,
+  PARCIALMENTE_PAGADA: 2,
+  PAGADA: 3,
 } as const;
 
 export const METODOS_PAGO = [

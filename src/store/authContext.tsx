@@ -29,7 +29,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const token = authService.getStoredToken();
     
     if (storedUser && token) {
-      setUser(storedUser);
+      // Migrar datos antiguos si es necesario
+      if ('nombre' in storedUser && !('firstName' in storedUser)) {
+        const [firstName = '', lastName = ''] = (storedUser as any).nombre?.split(' ') || ['', ''];
+        const migratedUser = {
+          ...storedUser,
+          firstName,
+          lastName
+        };
+        delete (migratedUser as any).nombre;
+        authService.storeAuthData(migratedUser);
+        setUser(migratedUser);
+      } else {
+        setUser(storedUser);
+      }
     }
     
     setIsLoading(false);

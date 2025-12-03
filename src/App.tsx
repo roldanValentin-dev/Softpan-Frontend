@@ -7,6 +7,15 @@ import Register from './pages/auth/Register';
 import Dashboard from './pages/dashboard/Dashboard';
 import ProductosList from './pages/productos/ProductosList';
 import ProductoForm from './pages/productos/ProductoForm';
+import ClientesList from './pages/clientes/ClientesList';
+import ClienteForm from './pages/clientes/ClienteForm';
+import VentasList from './pages/ventas/VentasList';
+import VentaForm from './pages/ventas/VentaForm';
+import VentaDetalle from './pages/ventas/VentaDetalle';
+import PagoForm from './pages/pagos/PagoForm';
+import PagosList from './pages/pagos/PagosList';
+import PagoDetalle from './pages/pagos/PagoDetalle';
+import Perfil from './pages/perfil/Perfil';
 import PrivateRoute from './components/layout/PrivateRoute';
 
 const queryClient = new QueryClient({
@@ -62,6 +71,96 @@ function App() {
               element={
                 <PrivateRoute>
                   <ProductoForm />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.CLIENTES} 
+              element={
+                <PrivateRoute>
+                  <ClientesList />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.CLIENTES_NUEVO} 
+              element={
+                <PrivateRoute>
+                  <ClienteForm />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path="/clientes/:id/editar" 
+              element={
+                <PrivateRoute>
+                  <ClienteForm />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.VENTAS} 
+              element={
+                <PrivateRoute>
+                  <VentasList />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.VENTAS_NUEVA} 
+              element={
+                <PrivateRoute>
+                  <VentaForm />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path="/ventas/:id" 
+              element={
+                <PrivateRoute>
+                  <VentaDetalle />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.PAGOS} 
+              element={
+                <PrivateRoute>
+                  <PagosList />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.PAGOS_NUEVO} 
+              element={
+                <PrivateRoute>
+                  <PagoForm />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path="/pagos/:id" 
+              element={
+                <PrivateRoute>
+                  <PagoDetalle />
+                </PrivateRoute>
+              } 
+            />
+            
+            <Route 
+              path={ROUTES.PERFIL} 
+              element={
+                <PrivateRoute>
+                  <Perfil />
                 </PrivateRoute>
               } 
             />

@@ -4,14 +4,16 @@
 export interface User {
   id?: number;
   email: string;
-  nombre: string;
+  firstName: string;
+  lastName: string;
   roles: string[];
 }
 
 export interface AuthResponse {
   token: string;
   email: string;
-  nombre: string;
+  firstName: string;
+  lastName: string;
   roles: string[];
 }
 
@@ -23,7 +25,8 @@ export interface LoginRequest {
 export interface RegisterRequest {
   email: string;
   password: string;
-  nombre: string;
+  firstName: string;
+  lastName: string;
 }
 
 // ===== PRODUCTOS =====
@@ -48,31 +51,38 @@ export interface Cliente {
   nombre: string;
   telefono: string;
   direccion: string;
+  tipoCliente: number;
+  tipoClienteNombre: string;
   activo: boolean;
+  fechaCreacion: string;
 }
 
 export interface ClienteForm {
   nombre: string;
   telefono: string;
   direccion: string;
+  tipoCliente: number;
 }
 
 // ===== VENTAS =====
 export interface Venta {
   id: number;
   clienteId: number;
-  nombreCliente: string;
+  clienteNombre: string;
   fechaCreacion: string;
+  fechaModificacion: string | null;
   montoTotal: number;
   montoPagado: number;
+  saldoPendiente: number;
   estado: EstadoVenta;
+  estadoNombre: string;
   detalles: DetalleVenta[];
 }
 
 export interface DetalleVenta {
   id: number;
   productoId: number;
-  nombreProducto: string;
+  productoNombre: string;
   cantidad: number;
   precioUnitario: number;
   subtotal: number;
@@ -87,6 +97,7 @@ export interface DetalleVentaForm {
   productoId: number;
   cantidad: number;
   precioUnitario: number;
+  subtotal?: number;
 }
 
 // ===== PAGOS =====

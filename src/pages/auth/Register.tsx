@@ -13,7 +13,8 @@ export default function Register() {
   const [formData, setFormData] = useState<RegisterRequest>({
     email: '',
     password: '',
-    nombre: '',
+    firstName: '',
+    lastName: '',
   });
   
   const [errors, setErrors] = useState<Partial<RegisterRequest>>({});
@@ -36,8 +37,11 @@ export default function Register() {
   const validateForm = (): boolean => {
     const newErrors: Partial<RegisterRequest> = {};
     
-    const nombreError = validateRequired(formData.nombre, 'Nombre');
-    if (nombreError) newErrors.nombre = nombreError;
+    const firstNameError = validateRequired(formData.firstName, 'Nombre');
+    if (firstNameError) newErrors.firstName = firstNameError;
+    
+    const lastNameError = validateRequired(formData.lastName, 'Apellido');
+    if (lastNameError) newErrors.lastName = lastNameError;
     
     const emailError = validateEmail(formData.email);
     if (emailError) newErrors.email = emailError;
@@ -90,22 +94,42 @@ export default function Register() {
           
           <div className="space-y-4">
             <div>
-              <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
-                Nombre completo
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                Nombre
               </label>
               <input
-                id="nombre"
-                name="nombre"
+                id="firstName"
+                name="firstName"
                 type="text"
-                autoComplete="name"
+                autoComplete="given-name"
                 required
-                className={`input-field ${errors.nombre ? 'border-red-500' : ''}`}
-                placeholder="Juan Pérez"
-                value={formData.nombre}
+                className={`input-field ${errors.firstName ? 'border-red-500' : ''}`}
+                placeholder="Juan"
+                value={formData.firstName}
                 onChange={handleChange}
               />
-              {errors.nombre && (
-                <p className="mt-1 text-sm text-red-600">{errors.nombre}</p>
+              {errors.firstName && (
+                <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                Apellido
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                autoComplete="family-name"
+                required
+                className={`input-field ${errors.lastName ? 'border-red-500' : ''}`}
+                placeholder="Pérez"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              {errors.lastName && (
+                <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
               )}
             </div>
             

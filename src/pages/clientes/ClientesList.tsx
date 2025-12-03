@@ -1,36 +1,27 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useProducts } from '../../hooks/useProducts';
-import { usePullToRefresh } from '../../hooks/usePullToRefresh';
-import { formatCurrency } from '../../utils/formatters';
+import { useClientes } from '../../hooks/useClientes';
 import { ROUTES } from '../../utils/constants';
 import AppLayout from '../../components/layout/AppLayout';
 import Breadcrumbs from '../../components/common/Breadcrumbs';
 import EmptyState from '../../components/common/EmptyState';
 import { TableSkeleton } from '../../components/common/LoadingSkeleton';
 import Swal from 'sweetalert2';
-import { MdSearch, MdCheckCircle, MdCancel, MdInventory, MdRefresh } from 'react-icons/md';
-import { useQueryClient } from '@tanstack/react-query';
+import { MdSearch, MdCheckCircle, MdCancel, MdPhone, MdLocationOn, MdPeople } from 'react-icons/md';
 
-export default function ProductosList() {
-  const queryClient = useQueryClient();
-  const { productos, isLoading, deleteProducto, isDeleting } = useProducts();
+export default function ClientesList() {
+  const { clientes, isLoading, deleteCliente, isDeleting } = useClientes();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterActivo, setFilterActivo] = useState<'todos' | 'activos' | 'inactivos'>('todos');
 
-  const handleRefresh = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['productos'] });
-  };
-
-  const { isPulling, isRefreshing } = usePullToRefresh(handleRefresh);
-
-  const filteredProductos = productos.filter(producto => {
-    const matchesSearch = producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredClientes = clientes.filter(cliente => {
+    const matchesSearch = cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         cliente.telefono.includes(searchTerm) ||
+                         cliente.direccion.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesFilter = filterActivo === 'todos' ||
-                         (filterActivo === 'activos' && producto.activo) ||
-                         (filterActivo === 'inactivos' && !producto.activo);
+                         (filterActivo === 'activos' && cliente.activo) ||
+                         (filterActivo === 'inactivos' && !cliente.activo);
     
     return matchesSearch && matchesFilter;
   });
@@ -38,7 +29,7 @@ export default function ProductosList() {
   const handleDelete = async (id: number, nombre: string) => {
     const result = await Swal.fire({
       title: '¿Estás seguro?',
-      text: `Se desactivará el producto "${nombre}"`,
+      text: `Se desactivará el cliente "${nombre}"`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#f97316',
@@ -51,17 +42,17 @@ export default function ProductosList() {
 
     if (result.isConfirmed) {
       try {
-        await deleteProducto(id);
+        await deleteCliente(id);
         Swal.fire({
           title: 'Desactivado',
-          text: 'El producto ha sido desactivado',
+          text: 'El cliente ha sido desactivado',
           icon: 'success',
           confirmButtonColor: '#f97316'
         });
       } catch (error: any) {
         Swal.fire({
           title: 'Error',
-          text: error.message || 'No se pudo desactivar el producto',
+          text: error.message || 'No se pudo desactivar el cliente',
           icon: 'error',
           confirmButtonColor: '#f97316'
         });
@@ -73,21 +64,15 @@ export default function ProductosList() {
 
   return (
     <AppLayout>
-      <div className="space-y-6 relative">
-        {(isPulling || isRefreshing) && (
-          <div className={`pull-to-refresh ${isPulling || isRefreshing ? 'visible' : ''}`}>
-            <MdRefresh className={`text-3xl text-orange-600 ${isRefreshing ? 'animate-spin' : ''}`} />
-          </div>
-        )}
-        
-        <Breadcrumbs items={[{ label: 'Productos' }]} />
+      <div className="space-y-6">
+        <Breadcrumbs items={[{ label: 'Clientes' }]} />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Productos</h1>
-            <p className="text-gray-600">Gestiona tu catálogo de productos</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-1">Clientes</h1>
+            <p className="text-gray-600">Gestiona tu cartera de clientes</p>
           </div>
-          <Link to={ROUTES.PRODUCTOS_NUEVO} className="btn-primary w-full sm:w-auto text-center">
-            + Nuevo Producto
+          <Link to={ROUTES.CLIENTES_NUEVO} className="btn-primary w-full sm:w-auto text-center">
+            + Nuevo Cliente
           </Link>
         </div>
 
@@ -97,7 +82,7 @@ export default function ProductosList() {
               <MdSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
               <input
                 type="text"
-                placeholder="Buscar productos..."
+                placeholder="Buscar clientes..."
                 className="input-field pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -118,50 +103,61 @@ export default function ProductosList() {
           <div className="md:hidden space-y-4">
             {isLoading ? (
               <TableSkeleton rows={5} />
-            ) : filteredProductos.length === 0 ? (
+            ) : filteredClientes.length === 0 ? (
               <EmptyState
-                icon={<MdInventory />}
-                title="No se encontraron productos"
-                description="Comienza agregando tu primer producto al catálogo"
+                icon={<MdPeople />}
+                title="No se encontraron clientes"
+                description="Comienza agregando tu primer cliente"
                 action={
-                  <Link to={ROUTES.PRODUCTOS_NUEVO} className="btn-primary">
-                    + Nuevo Producto
+                  <Link to={ROUTES.CLIENTES_NUEVO} className="btn-primary">
+                    + Nuevo Cliente
                   </Link>
                 }
               />
             ) : (
-              filteredProductos.map((producto) => (
-                <div key={producto.id} className="card hover:shadow-xl transition-shadow">
+              filteredClientes.map((cliente) => (
+                <div key={cliente.id} className="card hover:shadow-xl transition-shadow">
                   <div className="flex flex-col items-center text-center">
-                    <div className="h-14 w-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center mb-3">
-                      <span className="text-white font-bold text-2xl">
-                        {producto.nombre.charAt(0).toUpperCase()}
-                      </span>
+                    <div className="h-14 w-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-3">
+                      <MdPeople className="text-white text-3xl" />
                     </div>
-                    <h3 className="font-bold text-gray-900 text-lg mb-1">{producto.nombre}</h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{producto.descripcion}</p>
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-xl font-bold text-orange-600">
-                        {formatCurrency(producto.precioUnitario)}
+                    <h3 className="font-bold text-gray-900 text-lg mb-3">{cliente.nombre}</h3>
+                    <div className="space-y-1 mb-3">
+                      <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+                        <MdPhone className="text-gray-400" />
+                        {cliente.telefono}
+                      </div>
+                      <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+                        <MdLocationOn className="text-gray-400" />
+                        {cliente.direccion}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${
+                        cliente.tipoCliente === 1
+                          ? 'bg-purple-100 text-purple-800'
+                          : 'bg-indigo-100 text-indigo-800'
+                      }`}>
+                        {cliente.tipoClienteNombre}
                       </span>
                       <span className={`px-3 py-1 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full ${
-                        producto.activo
+                        cliente.activo
                           ? 'bg-green-100 text-green-800'
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {producto.activo ? <MdCheckCircle /> : <MdCancel />}
-                        {producto.activo ? 'Activo' : 'Inactivo'}
+                        {cliente.activo ? <MdCheckCircle /> : <MdCancel />}
+                        {cliente.activo ? 'Activo' : 'Inactivo'}
                       </span>
                     </div>
                     <div className="flex gap-2 w-full">
                       <Link
-                        to={`/productos/${producto.id}/editar`}
-                        className="flex-1 text-center bg-orange-100 hover:bg-orange-200 text-orange-700 font-semibold py-2 px-4 rounded-lg transition-colors"
+                        to={`/clientes/${cliente.id}/editar`}
+                        className="flex-1 text-center bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors"
                       >
                         Editar
                       </Link>
                       <button
-                        onClick={() => handleDelete(producto.id, producto.nombre)}
+                        onClick={() => handleDelete(cliente.id, cliente.nombre)}
                         disabled={isDeleting}
                         className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
                       >
@@ -181,13 +177,16 @@ export default function ProductosList() {
                 <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                   <tr>
                     <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                      Producto
+                      Cliente
                     </th>
                     <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                      Descripción
+                      Teléfono
+                    </th>
+                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                      Dirección
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                      Precio
+                      Tipo
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Estado
@@ -200,74 +199,83 @@ export default function ProductosList() {
                 <tbody className="bg-white divide-y divide-gray-100">
                   {isLoading ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-6">
+                      <td colSpan={6} className="px-6 py-6">
                         <TableSkeleton rows={5} />
                       </td>
                     </tr>
-                  ) : filteredProductos.length === 0 ? (
+                  ) : filteredClientes.length === 0 ? (
                     <tr>
-                      <td colSpan={5}>
+                      <td colSpan={6}>
                         <EmptyState
-                          icon={<MdInventory />}
-                          title="No se encontraron productos"
-                          description="Comienza agregando tu primer producto al catálogo"
+                          icon={<MdPeople />}
+                          title="No se encontraron clientes"
+                          description="Comienza agregando tu primer cliente"
                           action={
-                            <Link to={ROUTES.PRODUCTOS_NUEVO} className="btn-primary">
-                              + Nuevo Producto
+                            <Link to={ROUTES.CLIENTES_NUEVO} className="btn-primary">
+                              + Nuevo Cliente
                             </Link>
                           }
                         />
                       </td>
                     </tr>
                   ) : (
-                    filteredProductos.map((producto) => (
-                      <tr key={producto.id} className="table-row">
+                    filteredClientes.map((cliente) => (
+                      <tr key={cliente.id} className="table-row">
                         <td className="px-6 py-4">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
-                              <span className="text-white font-bold text-lg">
-                                {producto.nombre.charAt(0).toUpperCase()}
-                              </span>
+                            <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
+                              <span className="material-icons text-white text-xl">person</span>
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-semibold text-gray-900">
-                                {producto.nombre}
+                                {cliente.nombre}
                               </div>
                               <div className="md:hidden text-xs text-gray-500 mt-1">
-                                {producto.descripcion}
+                                {cliente.telefono}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="hidden md:table-cell px-6 py-4">
-                          <div className="text-sm text-gray-600">
-                            {producto.descripcion}
+                          <div className="text-sm text-gray-600 flex items-center gap-2">
+                            <MdPhone className="text-gray-400" />
+                            {cliente.telefono}
+                          </div>
+                        </td>
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <div className="text-sm text-gray-600 flex items-center gap-2">
+                            <MdLocationOn className="text-gray-400" />
+                            {cliente.direccion}
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm font-bold text-gray-900">
-                            {formatCurrency(producto.precioUnitario)}
-                          </div>
+                          <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${
+                            cliente.tipoCliente === 1
+                              ? 'bg-purple-100 text-purple-800'
+                              : 'bg-indigo-100 text-indigo-800'
+                          }`}>
+                            {cliente.tipoClienteNombre}
+                          </span>
                         </td>
                         <td className="px-6 py-4">
                           <span className={`px-3 py-1 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full ${
-                            producto.activo
+                            cliente.activo
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
                           }`}>
-                            {producto.activo ? <MdCheckCircle /> : <MdCancel />}
-                            {producto.activo ? 'Activo' : 'Inactivo'}
+                            {cliente.activo ? <MdCheckCircle /> : <MdCancel />}
+                            {cliente.activo ? 'Activo' : 'Inactivo'}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-right text-sm font-medium space-x-3">
                           <Link
-                            to={`/productos/${producto.id}/editar`}
-                            className="text-orange-600 hover:text-orange-900 font-semibold"
+                            to={`/clientes/${cliente.id}/editar`}
+                            className="text-blue-600 hover:text-blue-900 font-semibold"
                           >
                             Editar
                           </Link>
                           <button
-                            onClick={() => handleDelete(producto.id, producto.nombre)}
+                            onClick={() => handleDelete(cliente.id, cliente.nombre)}
                             disabled={isDeleting}
                             className="text-red-600 hover:text-red-900 font-semibold disabled:opacity-50"
                           >

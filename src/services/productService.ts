@@ -38,7 +38,13 @@ export const productService = {
   },
 
   async update(id: number, producto: Producto): Promise<Producto> {
-    const response = await api.put<Producto>(`/productos/${id}`, producto);
+    const payload = {
+      ...producto,
+      precioBase: producto.precioUnitario,
+      precioUnitario: producto.precioUnitario
+    };
+    console.log('Actualizando producto:', payload);
+    const response = await api.put<Producto>(`/productos/${id}`, payload);
     return response.data;
   },
 
