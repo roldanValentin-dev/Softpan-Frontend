@@ -140,7 +140,7 @@ export default function ClienteForm() {
 
   return (
     <AppLayout>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto pb-24">
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.CLIENTES)}

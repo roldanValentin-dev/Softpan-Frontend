@@ -83,8 +83,8 @@ export default function ProductosList() {
         <Breadcrumbs items={[{ label: 'Productos' }]} />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Productos</h1>
-            <p className="text-gray-600">Gestiona tu catálogo de productos</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Productos</h1>
+            <p className="text-gray-600 dark:text-gray-300">Gestiona tu catálogo de productos</p>
           </div>
           <Link to={ROUTES.PRODUCTOS_NUEVO} className="btn-primary w-full sm:w-auto text-center">
             + Nuevo Producto
@@ -115,7 +115,7 @@ export default function ProductosList() {
           </div>
 
           {/* Vista Mobile - Cards */}
-          <div className="md:hidden space-y-4">
+          <div className="md:hidden space-y-4 pb-24">
             {isLoading ? (
               <TableSkeleton rows={5} />
             ) : filteredProductos.length === 0 ? (
@@ -138,8 +138,8 @@ export default function ProductosList() {
                         {producto.nombre.charAt(0).toUpperCase()}
                       </span>
                     </div>
-                    <h3 className="font-bold text-gray-900 text-lg mb-1">{producto.nombre}</h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{producto.descripcion}</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-1">{producto.nombre}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">{producto.descripcion}</p>
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-xl font-bold text-orange-600">
                         {formatCurrency(producto.precioUnitario)}
@@ -175,29 +175,29 @@ export default function ProductosList() {
           </div>
 
           {/* Vista Desktop - Tabla */}
-          <div className="hidden md:block overflow-x-auto">
+          <div className="hidden md:block overflow-x-auto pb-6">
             <div className="inline-block min-w-full align-middle">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Producto
                     </th>
-                    <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Descripción
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Precio
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Estado
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Acciones
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-100">
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-100 dark:divide-gray-800">
                   {isLoading ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-6">
@@ -222,57 +222,60 @@ export default function ProductosList() {
                   ) : (
                     filteredProductos.map((producto) => (
                       <tr key={producto.id} className="table-row">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
-                              <span className="text-white font-bold text-lg">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="flex items-center gap-2 lg:gap-4">
+                            <div className="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
+                              <span className="text-white font-bold text-sm lg:text-lg">
                                 {producto.nombre.charAt(0).toUpperCase()}
                               </span>
                             </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-semibold text-gray-900">
+                            <div className="min-w-0">
+                              <div className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white truncate">
                                 {producto.nombre}
                               </div>
-                              <div className="md:hidden text-xs text-gray-500 mt-1">
+                              <div className="lg:hidden text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
                                 {producto.descripcion}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4">
-                          <div className="text-sm text-gray-600">
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             {producto.descripcion}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm font-bold text-gray-900">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="text-xs lg:text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">
                             {formatCurrency(producto.precioUnitario)}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full ${
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <span className={`px-2 lg:px-3 py-1 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full ${
                             producto.activo
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
                           }`}>
-                            {producto.activo ? <MdCheckCircle /> : <MdCancel />}
-                            {producto.activo ? 'Activo' : 'Inactivo'}
+                            {producto.activo ? <MdCheckCircle className="hidden lg:inline" /> : <MdCancel className="hidden lg:inline" />}
+                            <span className="hidden lg:inline">{producto.activo ? 'Activo' : 'Inactivo'}</span>
+                            <span className="lg:hidden">{producto.activo ? 'A' : 'I'}</span>
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-right text-sm font-medium space-x-3">
-                          <Link
-                            to={`/productos/${producto.id}/editar`}
-                            className="text-orange-600 hover:text-orange-900 font-semibold"
-                          >
-                            Editar
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(producto.id, producto.nombre)}
-                            disabled={isDeleting}
-                            className="text-red-600 hover:text-red-900 font-semibold disabled:opacity-50"
-                          >
-                            Desactivar
-                          </button>
+                        <td className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs lg:text-sm font-medium">
+                          <div className="flex flex-col lg:flex-row lg:space-x-3 gap-2 lg:gap-0 lg:justify-end">
+                            <Link
+                              to={`/productos/${producto.id}/editar`}
+                              className="text-orange-600 hover:text-orange-900 dark:text-orange-400 dark:hover:text-orange-300 font-semibold whitespace-nowrap"
+                            >
+                              Editar
+                            </Link>
+                            <button
+                              onClick={() => handleDelete(producto.id, producto.nombre)}
+                              disabled={isDeleting}
+                              className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 font-semibold disabled:opacity-50 whitespace-nowrap"
+                            >
+                              Desactivar
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))

@@ -31,13 +31,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (storedUser && token) {
       // Migrar datos antiguos si es necesario
       if ('nombre' in storedUser && !('firstName' in storedUser)) {
-        const [firstName = '', lastName = ''] = (storedUser as any).nombre?.split(' ') || ['', ''];
-        const migratedUser = {
-          ...storedUser,
+        const oldUser = storedUser as any;
+        const [firstName = '', lastName = ''] = oldUser.nombre?.split(' ') || ['', ''];
+        const migratedUser: AuthResponse = {
+          token: oldUser.token,
+          email: oldUser.email,
           firstName,
-          lastName
+          lastName,
+          roles: oldUser.roles
         };
-        delete (migratedUser as any).nombre;
         authService.storeAuthData(migratedUser);
         setUser(migratedUser);
       } else {
@@ -77,7 +79,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return user?.roles.includes(role) ?? false;
   };
 
-  const value: AuthContextType = {
+  const value = {
     user,
     isAuthenticated: !!user,
     isLoading,
@@ -85,7 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     hasRole,
-  };
+  } satisfies AuthContextType;
 
   return (
     <AuthContext.Provider value={value}>

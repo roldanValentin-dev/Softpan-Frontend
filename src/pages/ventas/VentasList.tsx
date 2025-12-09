@@ -61,7 +61,7 @@ export default function VentasList() {
   const getEstadoBadge = (estado: number, estadoNombre: string) => {
     const badges = {
       1: 'bg-yellow-100 text-yellow-800',
-      2: 'bg-blue-100 text-blue-800',
+      2: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
       3: 'bg-green-100 text-green-800',
     };
     
@@ -87,11 +87,11 @@ export default function VentasList() {
         <Breadcrumbs items={[{ label: 'Ventas' }]} />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Ventas</h1>
-            <p className="text-gray-600">Gestiona tus ventas y pedidos</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Ventas</h1>
+            <p className="text-gray-600 dark:text-gray-300">Gestiona tus ventas y pedidos</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Link to={ROUTES.PAGOS_NUEVO} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
+            <Link to={ROUTES.PAGOS_NUEVO} className="bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
               Registrar Pago
             </Link>
             <Link to={ROUTES.VENTAS_NUEVA} className="btn-primary text-center">
@@ -125,7 +125,7 @@ export default function VentasList() {
           </div>
 
           {/* Vista Mobile - Cards */}
-          <div className="md:hidden space-y-4">
+          <div className="md:hidden space-y-4 pb-24">
             {isLoading ? (
               <TableSkeleton rows={5} />
             ) : filteredVentas.length === 0 ? (
@@ -144,33 +144,33 @@ export default function VentasList() {
                 <div key={venta.id} className="card hover:shadow-xl transition-shadow">
                   <div className="flex justify-between items-start mb-3">
                     <div>
-                      <span className="text-sm text-gray-500">Venta</span>
-                      <h3 className="font-bold text-gray-900 text-xl">#{venta.id}</h3>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">Venta</span>
+                      <h3 className="font-bold text-gray-900 dark:text-white text-xl">#{venta.id}</h3>
                     </div>
                     {getEstadoBadge(venta.estado, venta.estadoNombre)}
                   </div>
                   <div className="space-y-2 mb-4">
                     <div>
-                      <span className="text-sm text-gray-600">Cliente</span>
-                      <p className="font-semibold text-gray-900">{venta.clienteNombre}</p>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Cliente</span>
+                      <p className="font-semibold text-gray-900 dark:text-white">{venta.clienteNombre}</p>
                     </div>
                     <div>
-                      <span className="text-sm text-gray-600">Fecha</span>
-                      <p className="text-sm text-gray-900">{formatDateTime(venta.fechaCreacion)}</p>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Fecha</span>
+                      <p className="text-sm text-gray-900 dark:text-white">{formatDateTime(venta.fechaCreacion)}</p>
                     </div>
                   </div>
                   <div className="space-y-2 mb-4">
-                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-600">Total</span>
-                      <p className="font-bold text-gray-900">{formatCurrency(venta.montoTotal)}</p>
+                    <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Total</span>
+                      <p className="font-bold text-gray-900 dark:text-white">{formatCurrency(venta.montoTotal)}</p>
                     </div>
-                    <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                      <span className="text-sm text-gray-600">Pagado</span>
-                      <p className="font-bold text-green-600">{formatCurrency(venta.montoPagado)}</p>
+                    <div className="flex justify-between items-center p-3 bg-green-50 dark:bg-green-900/30 rounded-lg">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Pagado</span>
+                      <p className="font-bold text-green-600 dark:text-green-400">{formatCurrency(venta.montoPagado)}</p>
                     </div>
-                    <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
-                      <span className="text-sm text-gray-600">Saldo</span>
-                      <p className="font-bold text-red-600">{formatCurrency(venta.saldoPendiente)}</p>
+                    <div className="flex justify-between items-center p-3 bg-red-50 dark:bg-red-900/30 rounded-lg">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Saldo</span>
+                      <p className="font-bold text-red-600 dark:text-red-400">{formatCurrency(venta.saldoPendiente)}</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -197,35 +197,35 @@ export default function VentasList() {
           <div className="hidden md:block overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       ID
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Cliente
                     </th>
-                    <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Fecha
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Total
                     </th>
-                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden xl:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Pagado
                     </th>
-                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden xl:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Saldo
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Estado
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Acciones
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-100 transition-all duration-300">
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-100 dark:divide-gray-800 transition-all duration-300">
                   {isLoading ? (
                     <tr>
                       <td colSpan={8} className="px-6 py-6">
@@ -250,53 +250,55 @@ export default function VentasList() {
                   ) : (
                     filteredVentas.map((venta) => (
                       <tr key={venta.id} className="table-row animate-fadeInUp">
-                        <td className="px-6 py-4">
-                          <div className="text-sm font-bold text-gray-900">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="text-xs lg:text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">
                             #{venta.id}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm font-semibold text-gray-900">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white truncate max-w-[120px] lg:max-w-none">
                             {venta.clienteNombre}
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4">
-                          <div className="text-sm text-gray-600">
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             {formatDateTime(venta.fechaCreacion)}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm font-bold text-gray-900">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="text-xs lg:text-sm font-bold text-gray-900 dark:text-white whitespace-nowrap">
                             {formatCurrency(venta.montoTotal)}
                           </div>
                         </td>
-                        <td className="hidden lg:table-cell px-6 py-4">
-                          <div className="text-sm text-green-600 font-semibold">
+                        <td className="hidden xl:table-cell px-6 py-4">
+                          <div className="text-sm text-green-600 font-semibold whitespace-nowrap">
                             {formatCurrency(venta.montoPagado)}
                           </div>
                         </td>
-                        <td className="hidden lg:table-cell px-6 py-4">
-                          <div className="text-sm text-red-600 font-semibold">
+                        <td className="hidden xl:table-cell px-6 py-4">
+                          <div className="text-sm text-red-600 font-semibold whitespace-nowrap">
                             {formatCurrency(venta.saldoPendiente)}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
                           {getEstadoBadge(venta.estado, venta.estadoNombre)}
                         </td>
-                        <td className="px-6 py-4 text-right text-sm font-medium space-x-3">
-                          <Link
-                            to={`/ventas/${venta.id}`}
-                            className="text-green-600 hover:text-green-900 font-semibold"
-                          >
-                            Ver Detalle
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(venta.id)}
-                            disabled={isDeleting}
-                            className="text-red-600 hover:text-red-900 font-semibold disabled:opacity-50"
-                          >
-                            Eliminar
-                          </button>
+                        <td className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs lg:text-sm font-medium">
+                          <div className="flex flex-col lg:flex-row lg:space-x-3 gap-2 lg:gap-0 lg:justify-end">
+                            <Link
+                              to={`/ventas/${venta.id}`}
+                              className="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 font-semibold whitespace-nowrap"
+                            >
+                              Ver
+                            </Link>
+                            <button
+                              onClick={() => handleDelete(venta.id)}
+                              disabled={isDeleting}
+                              className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 font-semibold disabled:opacity-50 whitespace-nowrap"
+                            >
+                              Eliminar
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))

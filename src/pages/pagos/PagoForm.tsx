@@ -8,7 +8,7 @@ import { ROUTES } from '../../utils/constants';
 import AppLayout from '../../components/layout/AppLayout';
 import type { VentaAAplicar } from '../../services/pagoService';
 import Swal from 'sweetalert2';
-import { MdPayment, MdAttachMoney } from 'react-icons/md';
+import { MdPayment } from 'react-icons/md';
 
 export default function PagoForm() {
   const navigate = useNavigate();
@@ -158,23 +158,23 @@ export default function PagoForm() {
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.VENTAS)}
-            className="text-gray-600 hover:text-gray-900 font-medium mb-4 flex items-center gap-2 transition-colors"
+            className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium mb-4 flex items-center gap-2 transition-colors"
           >
             <span className="material-icons text-xl">arrow_back</span>
             Volver a ventas
           </button>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
             <MdPayment className="text-4xl text-green-600" />
             Registrar Pago
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Registra un pago y aplícalo a las ventas pendientes del cliente
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="card">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Información del Pago</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Información del Pago</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -257,7 +257,7 @@ export default function PagoForm() {
                 <>
                   <div className="card">
                     <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-bold text-gray-900">
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                         Aplicar Pago a Ventas
                       </h2>
                       {monto > 0 && (
@@ -275,20 +275,20 @@ export default function PagoForm() {
                       {ventasCliente.map(venta => {
                         const montoAplicado = montosAplicados[venta.id] || 0;
                         return (
-                          <div key={venta.id} className="border-2 border-gray-200 rounded-xl p-4 hover:border-gray-300 transition-colors">
+                          <div key={venta.id} className="border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
                             <div className="flex flex-col md:flex-row md:items-center gap-4">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className="font-bold text-gray-900">Venta #{venta.id}</span>
-                                  <span className="text-xs text-gray-500">
+                                  <span className="font-bold text-gray-900 dark:text-white">Venta #{venta.id}</span>
+                                  <span className="text-xs text-gray-500 dark:text-gray-400">
                                     {formatDateTime(venta.fechaCreacion)}
                                   </span>
                                 </div>
                                 <div className="flex gap-4 text-sm">
-                                  <span className="text-gray-600">
+                                  <span className="text-gray-600 dark:text-gray-300">
                                     Total: <span className="font-semibold">{formatCurrency(venta.montoTotal)}</span>
                                   </span>
-                                  <span className="text-red-600">
+                                  <span className="text-red-600 dark:text-red-400">
                                     Saldo: <span className="font-bold">{formatCurrency(venta.saldoPendiente)}</span>
                                   </span>
                                 </div>

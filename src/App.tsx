@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './store/authContext';
+import { ThemeProvider } from './store/themeContext';
 import { ROUTES } from './utils/constants';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -31,8 +32,9 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <AuthProvider>
           <Routes>
             {/* Rutas públicas */}
             <Route path={ROUTES.LOGIN} element={<Login />} />
@@ -67,7 +69,7 @@ function App() {
             />
             
             <Route 
-              path="/productos/:id/editar" 
+              path={ROUTES.PRODUCTOS_EDITAR} 
               element={
                 <PrivateRoute>
                   <ProductoForm />
@@ -94,7 +96,7 @@ function App() {
             />
             
             <Route 
-              path="/clientes/:id/editar" 
+              path={ROUTES.CLIENTES_EDITAR} 
               element={
                 <PrivateRoute>
                   <ClienteForm />
@@ -121,7 +123,7 @@ function App() {
             />
             
             <Route 
-              path="/ventas/:id" 
+              path={ROUTES.VENTAS_DETALLE} 
               element={
                 <PrivateRoute>
                   <VentaDetalle />
@@ -148,7 +150,7 @@ function App() {
             />
             
             <Route 
-              path="/pagos/:id" 
+              path={ROUTES.PAGOS_DETALLE} 
               element={
                 <PrivateRoute>
                   <PagoDetalle />
@@ -169,8 +171,9 @@ function App() {
             <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
             <Route path="*" element={<Navigate to={ROUTES.LOGIN} replace />} />
           </Routes>
-        </AuthProvider>
-      </BrowserRouter>
+          </AuthProvider>
+        </BrowserRouter>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -17,9 +18,9 @@ export default {
         },
         secondary: {
           50: '#f8fafc',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
+          500: '#1f2937',
+          600: '#111827',
+          700: '#030712',
         }
       },
       // Espaciado optimizado para mobile

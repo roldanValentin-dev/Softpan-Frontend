@@ -19,7 +19,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="bottom-nav md:hidden">
+    <nav className="bottom-nav">
       <div className="flex justify-around items-center py-2">
         {navItems.map(item => {
           const Icon = item.icon;
@@ -29,11 +29,11 @@ export default function BottomNav() {
               key={item.route}
               to={item.route}
               className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 ${
-                active ? 'text-orange-600' : 'text-gray-500'
+                active ? 'text-orange-600 dark:text-orange-400' : 'text-gray-500 dark:text-gray-400'
               }`}
             >
               <div className={`p-2 rounded-xl transition-colors ${
-                active ? 'bg-orange-100' : ''
+                active ? 'bg-orange-100 dark:bg-orange-900/30' : ''
               }`}>
                 <Icon className="text-2xl" />
               </div>

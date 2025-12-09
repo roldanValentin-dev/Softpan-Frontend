@@ -43,7 +43,6 @@ export const pagoService = {
   },
 
   async create(pago: PagoForm): Promise<Pago> {
-    console.log('Enviando pago:', pago);
     const response = await api.post<Pago>('/pagos', pago);
     return response.data;
   },

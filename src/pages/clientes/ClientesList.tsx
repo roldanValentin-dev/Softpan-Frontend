@@ -68,8 +68,8 @@ export default function ClientesList() {
         <Breadcrumbs items={[{ label: 'Clientes' }]} />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Clientes</h1>
-            <p className="text-gray-600">Gestiona tu cartera de clientes</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Clientes</h1>
+            <p className="text-gray-600 dark:text-gray-300">Gestiona tu cartera de clientes</p>
           </div>
           <Link to={ROUTES.CLIENTES_NUEVO} className="btn-primary w-full sm:w-auto text-center">
             + Nuevo Cliente
@@ -100,7 +100,7 @@ export default function ClientesList() {
           </div>
 
           {/* Vista Mobile - Cards */}
-          <div className="md:hidden space-y-4">
+          <div className="md:hidden space-y-4 pb-24">
             {isLoading ? (
               <TableSkeleton rows={5} />
             ) : filteredClientes.length === 0 ? (
@@ -118,10 +118,10 @@ export default function ClientesList() {
               filteredClientes.map((cliente) => (
                 <div key={cliente.id} className="card hover:shadow-xl transition-shadow">
                   <div className="flex flex-col items-center text-center">
-                    <div className="h-14 w-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-3">
+                    <div className="h-14 w-14 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center mb-3">
                       <MdPeople className="text-white text-3xl" />
                     </div>
-                    <h3 className="font-bold text-gray-900 text-lg mb-3">{cliente.nombre}</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-3">{cliente.nombre}</h3>
                     <div className="space-y-1 mb-3">
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
                         <MdPhone className="text-gray-400" />
@@ -152,7 +152,7 @@ export default function ClientesList() {
                     <div className="flex gap-2 w-full">
                       <Link
                         to={`/clientes/${cliente.id}/editar`}
-                        className="flex-1 text-center bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors"
+                        className="flex-1 text-center bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors"
                       >
                         Editar
                       </Link>
@@ -174,29 +174,29 @@ export default function ClientesList() {
           <div className="hidden md:block overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Cliente
                     </th>
-                    <th className="hidden md:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Teléfono
                     </th>
-                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden xl:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Dirección
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Tipo
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="hidden lg:table-cell px-6 py-4 text-left text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Estado
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                       Acciones
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-100">
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-100 dark:divide-gray-800">
                   {isLoading ? (
                     <tr>
                       <td colSpan={6} className="px-6 py-6">
@@ -221,43 +221,44 @@ export default function ClientesList() {
                   ) : (
                     filteredClientes.map((cliente) => (
                       <tr key={cliente.id} className="table-row">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
-                              <span className="material-icons text-white text-xl">person</span>
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <div className="flex items-center gap-2 lg:gap-4">
+                            <div className="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center">
+                              <span className="material-icons text-white text-base lg:text-xl">person</span>
                             </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-semibold text-gray-900">
+                            <div className="min-w-0">
+                              <div className="text-xs lg:text-sm font-semibold text-gray-900 dark:text-white truncate">
                                 {cliente.nombre}
                               </div>
-                              <div className="md:hidden text-xs text-gray-500 mt-1">
+                              <div className="lg:hidden text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
                                 {cliente.telefono}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4">
-                          <div className="text-sm text-gray-600 flex items-center gap-2">
+                        <td className="hidden lg:table-cell px-6 py-4">
+                          <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
                             <MdPhone className="text-gray-400" />
                             {cliente.telefono}
                           </div>
                         </td>
-                        <td className="hidden lg:table-cell px-6 py-4">
-                          <div className="text-sm text-gray-600 flex items-center gap-2">
+                        <td className="hidden xl:table-cell px-6 py-4">
+                          <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2">
                             <MdLocationOn className="text-gray-400" />
-                            {cliente.direccion}
+                            <span className="truncate max-w-xs">{cliente.direccion}</span>
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${
+                        <td className="px-3 lg:px-6 py-3 lg:py-4">
+                          <span className={`px-2 lg:px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full whitespace-nowrap ${
                             cliente.tipoCliente === 1
                               ? 'bg-purple-100 text-purple-800'
                               : 'bg-indigo-100 text-indigo-800'
                           }`}>
-                            {cliente.tipoClienteNombre}
+                            <span className="lg:hidden">{cliente.tipoCliente === 1 ? 'C' : 'R'}</span>
+                            <span className="hidden lg:inline">{cliente.tipoClienteNombre}</span>
                           </span>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="hidden lg:table-cell px-6 py-4">
                           <span className={`px-3 py-1 inline-flex items-center gap-1 text-xs leading-5 font-bold rounded-full ${
                             cliente.activo
                               ? 'bg-green-100 text-green-800'
@@ -267,20 +268,22 @@ export default function ClientesList() {
                             {cliente.activo ? 'Activo' : 'Inactivo'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-right text-sm font-medium space-x-3">
-                          <Link
-                            to={`/clientes/${cliente.id}/editar`}
-                            className="text-blue-600 hover:text-blue-900 font-semibold"
-                          >
-                            Editar
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(cliente.id, cliente.nombre)}
-                            disabled={isDeleting}
-                            className="text-red-600 hover:text-red-900 font-semibold disabled:opacity-50"
-                          >
-                            Desactivar
-                          </button>
+                        <td className="px-3 lg:px-6 py-3 lg:py-4 text-right text-xs lg:text-sm font-medium">
+                          <div className="flex flex-col lg:flex-row lg:space-x-3 gap-2 lg:gap-0 lg:justify-end">
+                            <Link
+                              to={`/clientes/${cliente.id}/editar`}
+                              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 font-semibold whitespace-nowrap"
+                            >
+                              Editar
+                            </Link>
+                            <button
+                              onClick={() => handleDelete(cliente.id, cliente.nombre)}
+                              disabled={isDeleting}
+                              className="text-red-600 hover:text-red-900 font-semibold disabled:opacity-50 whitespace-nowrap"
+                            >
+                              Desactivar
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))

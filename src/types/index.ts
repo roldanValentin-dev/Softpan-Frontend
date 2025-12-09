@@ -101,19 +101,8 @@ export interface DetalleVentaForm {
 }
 
 // ===== PAGOS =====
-export interface Pago {
-  id: number;
-  ventaId: number;
-  monto: number;
-  fechaPago: string;
-  metodoPago: string;
-}
-
-export interface PagoForm {
-  ventaId: number;
-  monto: number;
-  metodoPago: string;
-}
+// Los tipos de Pago están definidos en services/pagoService.ts
+export type { Pago, PagoForm, PagoAplicado, VentaAAplicar } from '../services/pagoService';
 
 // ===== ESTADÍSTICAS =====
 export interface DashboardStats {

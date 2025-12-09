@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/authContext';
+import { useTheme } from '../../store/themeContext';
 import { validateEmail, validatePassword } from '../../utils/validators';
 import { ROUTES } from '../../utils/constants';
 import type { LoginRequest } from '../../types';
+import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import logo from '../../assets/images/Logo-Softpan.png';
 
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { isDark, toggle } = useTheme();
   
   const [formData, setFormData] = useState<LoginRequest>({
     email: '',
@@ -66,6 +69,15 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={toggle}
+            className="p-2 rounded-lg bg-white border border-gray-300 hover:bg-gray-100 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {isDark ? <MdLightMode className="text-xl text-gray-700" /> : <MdDarkMode className="text-xl text-gray-700" />}
+          </button>
+        </div>
         <div className="text-center">
           <img 
             src={logo} 
@@ -77,7 +89,7 @@ export default function Login() {
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6 bg-white p-8 rounded-2xl shadow-lg" onSubmit={handleSubmit}>
           {apiError && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {apiError}
@@ -95,7 +107,7 @@ export default function Login() {
                 type="email"
                 autoComplete="email"
                 required
-                className={`input-field ${errors.email ? 'border-red-500' : ''}`}
+                className={`mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${errors.email ? 'border-red-500' : ''}`}
                 placeholder="tu@email.com"
                 value={formData.email}
                 onChange={handleChange}
@@ -115,7 +127,7 @@ export default function Login() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className={`input-field ${errors.password ? 'border-red-500' : ''}`}
+                className={`mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${errors.password ? 'border-red-500' : ''}`}
                 placeholder="Tu contraseña"
                 value={formData.password}
                 onChange={handleChange}

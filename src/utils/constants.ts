@@ -14,6 +14,7 @@ export const ROUTES = {
   PRODUCTOS_EDITAR: '/productos/:id/editar',
   CLIENTES: '/clientes',
   CLIENTES_NUEVO: '/clientes/nuevo',
+  CLIENTES_EDITAR: '/clientes/:id/editar',
   CLIENTES_DETALLE: '/clientes/:id',
   VENTAS: '/ventas',
   VENTAS_NUEVA: '/ventas/nueva',
@@ -39,7 +40,6 @@ export const ESTADOS_VENTA = {
 
 export const METODOS_PAGO = [
   'Efectivo',
-  'Tarjeta',
   'Transferencia',
 ] as const;
 
