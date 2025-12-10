@@ -62,6 +62,24 @@ export function useStats() {
     retry: false,
   });
 
+  const { data: ventasPorTipoCliente, isLoading: isVentasTipoLoading } = useQuery({
+    queryKey: ['stats', 'ventas', 'tipo-cliente'],
+    queryFn: () => statsService.getVentasPorTipoCliente(),
+    retry: false,
+  });
+
+  const { data: metodosPago, isLoading: isMetodosPagoLoading } = useQuery({
+    queryKey: ['stats', 'pagos', 'metodos'],
+    queryFn: () => statsService.getMetodosPago(),
+    retry: false,
+  });
+
+  const { data: productosSinMovimiento, isLoading: isProductosSinMovLoading } = useQuery({
+    queryKey: ['stats', 'productos', 'sin-movimiento'],
+    queryFn: () => statsService.getProductosSinMovimiento(30),
+    retry: false,
+  });
+
   return {
     dashboard,
     ventasHoy,
@@ -73,9 +91,12 @@ export function useStats() {
     comparativaMensual,
     comparativaSemanal,
     ventasPorDia,
+    ventasPorTipoCliente,
+    metodosPago,
+    productosSinMovimiento,
     isLoading: isDashboardLoading || isVentasHoyLoading || isVentasSemanaLoading || 
                isVentasMesLoading || isTopProductosLoading || isClientesDeudaLoading || 
                isResumenDeudasLoading || isComparativaMensualLoading || isComparativaSemanalLoading ||
-               isVentasPorDiaLoading,
+               isVentasPorDiaLoading || isVentasTipoLoading || isMetodosPagoLoading || isProductosSinMovLoading,
   };
 }

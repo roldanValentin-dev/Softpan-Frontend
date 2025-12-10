@@ -19,6 +19,9 @@ export default function Dashboard() {
     comparativaMensual,
     comparativaSemanal,
     ventasPorDia,
+    ventasPorTipoCliente,
+    metodosPago,
+    productosSinMovimiento,
     isLoading 
   } = useStats();
 
@@ -261,6 +264,70 @@ export default function Dashboard() {
                   <p className="text-center text-gray-500 py-8">No hay datos disponibles</p>
                 )}
               </div>
+
+              {/* Ventas por Tipo Cliente y Métodos de Pago */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="card">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-4">Ventas por Tipo de Cliente</h3>
+                  {ventasPorTipoCliente && ventasPorTipoCliente.length > 0 ? (
+                    <div className="space-y-3">
+                      {ventasPorTipoCliente.map((tipo: any) => (
+                        <div key={tipo.tipoCliente} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                          <div className="flex-1">
+                            <p className="font-semibold text-gray-900 dark:text-white">{tipo.tipoClienteNombre}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{tipo.cantidadTransacciones} transacciones</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-lg font-bold text-blue-600">{formatCurrency(tipo.totalVentas)}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{tipo.porcentaje.toFixed(1)}%</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-gray-500 dark:text-gray-400 py-8">No hay datos disponibles</p>
+                  )}
+                </div>
+
+                <div className="card">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-4">Métodos de Pago</h3>
+                  {metodosPago && metodosPago.length > 0 ? (
+                    <div className="space-y-3">
+                      {metodosPago.map((metodo: any) => (
+                        <div key={metodo.tipoPago} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                          <div className="flex-1">
+                            <p className="font-semibold text-gray-900 dark:text-white">{metodo.tipoPagoNombre}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{metodo.cantidadPagos} pagos</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-lg font-bold text-green-600">{formatCurrency(metodo.totalCobrado)}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{metodo.porcentaje.toFixed(1)}%</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-gray-500 dark:text-gray-400 py-8">No hay datos disponibles</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Productos sin Movimiento */}
+              {productosSinMovimiento && productosSinMovimiento.length > 0 && (
+                <div className="card">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-4">Productos sin Movimiento (30 días)</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {productosSinMovimiento.slice(0, 6).map((producto: any) => (
+                      <div key={producto.productoId} className="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl">
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm">{producto.nombreProducto}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                          {producto.diasSinVenta} días sin venta
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>

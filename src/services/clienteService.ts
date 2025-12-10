@@ -33,4 +33,9 @@ export const clienteService = {
   async delete(id: number): Promise<void> {
     await api.delete(`/clientes/${id}`);
   },
+
+  async getClienteMostrador(): Promise<Cliente> {
+    const response = await api.get<Cliente>('/clientes/mostrador');
+    return response.data;
+  },
 };

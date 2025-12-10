@@ -4,11 +4,11 @@ import type { ApiError } from '../types';
 
 // Cliente HTTP base
 export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 segundos
+  timeout: 30000, // 30 segundos para Render
 });
 
 // Interceptor para agregar token JWT automáticamente
@@ -31,8 +31,10 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error('API Error:', error.response?.data);
-    console.error('Validation Errors:', error.response?.data?.errors);
+    console.error('API Error:', error);
+    console.error('Response:', error.response);
+    console.error('Request URL:', error.config?.url);
+    console.error('Base URL:', error.config?.baseURL);
     
     const apiError: ApiError = {
       message: error.response?.data?.message || error.message || 'Error desconocido',

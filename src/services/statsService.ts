@@ -61,4 +61,27 @@ export const statsService = {
     const response = await api.get('/estadisticas/ventas/por-dia-semana');
     return response.data;
   },
+
+  async getVentasPorTipoCliente(): Promise<any> {
+    const response = await api.get('/estadisticas/ventas/por-tipo-cliente');
+    return response.data;
+  },
+
+  async getMetodosPago(): Promise<any> {
+    const response = await api.get('/estadisticas/pagos/metodos');
+    return response.data;
+  },
+
+  async getProductosSinMovimiento(dias: number = 30): Promise<any> {
+    const response = await api.get(`/estadisticas/productos/sin-movimiento?dias=${dias}`);
+    return response.data;
+  },
+
+  async getPrediccionDemanda(diaSemana?: number): Promise<any> {
+    const url = diaSemana !== undefined 
+      ? `/estadisticas/prediccion/demanda?diaSemana=${diaSemana}`
+      : '/estadisticas/prediccion/demanda';
+    const response = await api.get(url);
+    return response.data;
+  },
 };

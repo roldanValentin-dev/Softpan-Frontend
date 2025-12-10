@@ -236,7 +236,8 @@ export default function ClienteForm() {
               value={formData.tipoCliente}
               onChange={handleChange}
             >
-              <option value={0}>Seleccionar tipo</option>
+              <option value="">Seleccionar tipo</option>
+              <option value={0}>Común</option>
               <option value={1}>Comercio</option>
               <option value={2}>Revendedor</option>
             </select>
