@@ -15,10 +15,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
     if (isDark) {
       root.classList.add('dark');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#000000');
     } else {
       root.classList.remove('dark');
+      if (metaThemeColor) metaThemeColor.setAttribute('content', '#ffffff');
     }
     localStorage.setItem('darkMode', String(isDark));
   }, [isDark]);

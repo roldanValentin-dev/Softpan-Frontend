@@ -154,7 +154,7 @@ export default function PagoForm() {
 
   return (
     <AppLayout>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto pb-24">
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.VENTAS)}
@@ -178,7 +178,7 @@ export default function PagoForm() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                   Cliente
                 </label>
                 <select
@@ -197,7 +197,7 @@ export default function PagoForm() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                   Monto del Pago
                 </label>
                 <div className="relative">
@@ -216,7 +216,7 @@ export default function PagoForm() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                   Método de Pago
                 </label>
                 <select
@@ -231,7 +231,7 @@ export default function PagoForm() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                   Observaciones
                 </label>
                 <input
@@ -295,7 +295,7 @@ export default function PagoForm() {
                               </div>
                               
                               <div className="w-full md:w-48">
-                                <label className="block text-xs font-bold text-gray-700 mb-1">
+                                <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
                                   Monto a Aplicar
                                 </label>
                                 <div className="relative">

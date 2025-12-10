@@ -94,26 +94,26 @@ export default function VentaForm() {
 
   return (
     <AppLayout>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto pb-24">
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.VENTAS)}
-            className="text-gray-600 hover:text-gray-900 font-medium mb-4 flex items-center gap-2 transition-colors"
+            className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium mb-4 flex items-center gap-2 transition-colors"
           >
             <span className="material-icons text-xl">arrow_back</span>
             Volver a ventas
           </button>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Nueva Venta
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Selecciona el cliente y las cantidades de productos
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="card">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Cliente</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Cliente</h2>
             <select
               className="input-field"
               value={clienteId}
@@ -130,7 +130,7 @@ export default function VentaForm() {
           </div>
 
           <div className="card">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
               <MdShoppingCart className="text-2xl" />
               Productos
             </h2>
@@ -161,13 +161,13 @@ export default function VentaForm() {
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
-                        <h3 className="font-bold text-gray-900">{producto.nombre}</h3>
-                        <p className="text-xs text-gray-500 line-clamp-1">{producto.descripcion}</p>
+                        <h3 className="font-bold text-gray-900 dark:text-white">{producto.nombre}</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{producto.descripcion}</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold text-gray-700">
+                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                         {formatCurrency(producto.precioUnitario)}
                       </span>
                       {cantidad > 0 && (
@@ -209,17 +209,17 @@ export default function VentaForm() {
 
           {detalles.length > 0 && (
             <div className="card animate-fadeInUp">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Resumen del Pedido</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Resumen del Pedido</h2>
               <div className="space-y-2">
                 {detalles.map(detalle => {
                   const producto = productos.find(p => p.id === detalle.productoId);
                   return (
                     <div key={detalle.productoId} className="flex justify-between items-center py-2 border-b">
                       <div>
-                        <span className="font-semibold text-gray-900">{producto?.nombre}</span>
-                        <span className="text-gray-500 ml-2">x {detalle.cantidad}</span>
+                        <span className="font-semibold text-gray-900 dark:text-white">{producto?.nombre}</span>
+                        <span className="text-gray-500 dark:text-gray-400 ml-2">x {detalle.cantidad}</span>
                       </div>
-                      <span className="font-bold text-gray-900">
+                      <span className="font-bold text-gray-900 dark:text-white">
                         {formatCurrency(detalle.subtotal || 0)}
                       </span>
                     </div>

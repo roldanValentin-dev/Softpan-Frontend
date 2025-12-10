@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
-import { usePullToRefresh } from '../../hooks/usePullToRefresh';
 import { formatCurrency } from '../../utils/formatters';
 import { ROUTES } from '../../utils/constants';
 import AppLayout from '../../components/layout/AppLayout';
@@ -9,20 +8,12 @@ import Breadcrumbs from '../../components/common/Breadcrumbs';
 import EmptyState from '../../components/common/EmptyState';
 import { TableSkeleton } from '../../components/common/LoadingSkeleton';
 import Swal from 'sweetalert2';
-import { MdSearch, MdCheckCircle, MdCancel, MdInventory, MdRefresh } from 'react-icons/md';
-import { useQueryClient } from '@tanstack/react-query';
+import { MdSearch, MdCheckCircle, MdCancel, MdInventory } from 'react-icons/md';
 
 export default function ProductosList() {
-  const queryClient = useQueryClient();
   const { productos, isLoading, deleteProducto, isDeleting } = useProducts();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterActivo, setFilterActivo] = useState<'todos' | 'activos' | 'inactivos'>('todos');
-
-  const handleRefresh = async () => {
-    await queryClient.invalidateQueries({ queryKey: ['productos'] });
-  };
-
-  const { isPulling, isRefreshing } = usePullToRefresh(handleRefresh);
 
   const filteredProductos = productos.filter(producto => {
     const matchesSearch = producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -73,13 +64,7 @@ export default function ProductosList() {
 
   return (
     <AppLayout>
-      <div className="space-y-6 relative">
-        {(isPulling || isRefreshing) && (
-          <div className={`pull-to-refresh ${isPulling || isRefreshing ? 'visible' : ''}`}>
-            <MdRefresh className={`text-3xl text-orange-600 ${isRefreshing ? 'animate-spin' : ''}`} />
-          </div>
-        )}
-        
+      <div className="space-y-6">
         <Breadcrumbs items={[{ label: 'Productos' }]} />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>

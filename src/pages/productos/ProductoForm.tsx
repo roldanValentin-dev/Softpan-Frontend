@@ -139,28 +139,28 @@ export default function ProductoForm() {
 
   return (
     <AppLayout>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto pb-24">
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.PRODUCTOS)}
-            className="text-gray-600 hover:text-gray-900 font-medium mb-4 flex items-center gap-2 transition-colors"
+            className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium mb-4 flex items-center gap-2 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Volver a productos
           </button>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {isEditing ? 'Editar Producto' : 'Nuevo Producto'}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             {isEditing ? 'Actualiza la información del producto' : 'Completa los datos del nuevo producto'}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="card space-y-6">
           <div>
-            <label htmlFor="nombre" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="nombre" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Nombre del producto
             </label>
             <input
@@ -184,7 +184,7 @@ export default function ProductoForm() {
           </div>
 
           <div>
-            <label htmlFor="descripcion" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="descripcion" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Descripción
             </label>
             <textarea
@@ -208,7 +208,7 @@ export default function ProductoForm() {
           </div>
 
           <div>
-            <label htmlFor="precioUnitario" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="precioUnitario" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Precio Unitario
             </label>
             <div className="relative">

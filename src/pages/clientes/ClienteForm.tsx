@@ -144,22 +144,22 @@ export default function ClienteForm() {
         <div className="mb-8">
           <button
             onClick={() => navigate(ROUTES.CLIENTES)}
-            className="text-gray-600 hover:text-gray-900 font-medium mb-4 flex items-center gap-2 transition-colors"
+            className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium mb-4 flex items-center gap-2 transition-colors"
           >
             <span className="material-icons text-xl">arrow_back</span>
             Volver a clientes
           </button>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {isEditing ? 'Editar Cliente' : 'Nuevo Cliente'}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             {isEditing ? 'Actualiza la información del cliente' : 'Completa los datos del nuevo cliente'}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="card space-y-6">
           <div>
-            <label htmlFor="nombre" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="nombre" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Nombre del cliente
             </label>
             <input
@@ -181,7 +181,7 @@ export default function ClienteForm() {
           </div>
 
           <div>
-            <label htmlFor="telefono" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="telefono" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Teléfono
             </label>
             <input
@@ -203,7 +203,7 @@ export default function ClienteForm() {
           </div>
 
           <div>
-            <label htmlFor="direccion" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="direccion" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Dirección
             </label>
             <textarea
@@ -225,7 +225,7 @@ export default function ClienteForm() {
           </div>
 
           <div>
-            <label htmlFor="tipoCliente" className="block text-sm font-bold text-gray-700 mb-2">
+            <label htmlFor="tipoCliente" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
               Tipo de Cliente
             </label>
             <select
